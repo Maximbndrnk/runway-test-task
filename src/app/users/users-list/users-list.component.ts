@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { UsersService } from '../../core/user.service';
 import { User } from '../../core/user.model';
 import { AsyncPipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, of, catchError, tap } from 'rxjs';
 
 @Component({
   selector: 'app-users-list',
@@ -27,18 +27,19 @@ export class UsersListComponent implements OnInit {
   fetch(): void {
     this.loading = true;
     this.error = null;
-    this.users$ = this.usersService.getUsers();
-    this.users$.subscribe({
-      next: () => (this.loading = false),
-      error: (err) => {
+
+    this.users$ = this.usersService.getUsers().pipe(
+      tap(() => (this.loading = false)),
+      catchError((err) => {
+        console.error(err);
         this.loading = false;
         this.error = 'Something went wrong.';
-        console.error(err);
-      }
-    });
+        return of([] as User[]);
+      })
+    );
   }
 
-  trackById(_: number, u: User) {
-    return u.id;
+  trackById(index: number, u: User) {
+    return u.id ?? u.email ?? index;
   }
 }

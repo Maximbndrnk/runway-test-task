@@ -6,7 +6,8 @@
 <section *ngIf="loading">Loading...</section>
 <section *ngIf="error" class="error">{{ error }}</section>
 
-<table class="users-table" *ngIf="!loading && !error">
+<!-- Таблиця завжди в DOM, async pipe підписується відразу -->
+<table class="users-table">
   <thead>
   <tr>
     <th>Name</th>
@@ -17,15 +18,20 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let u of users$ | async; trackBy: trackById">
-    <td>{{ u.name }}</td>
-    <td>{{ u.email }}</td>
-    <td>{{ u.phone || '—' }}</td>
-    <td>{{ u.address?.city || '—' }}</td>
-    <td>
-      <a class="btn" [routerLink]="['/users', u.id]">View</a>
-      <a class="btn btn--primary" [routerLink]="['/users', u.id, 'edit']">Edit</a>
-    </td>
-  </tr>
+  <ng-container *ngIf="users$ | async as users">
+    <tr *ngFor="let u of users; trackBy: trackById">
+      <td>{{ u.name }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.phone || '—' }}</td>
+      <td>{{ u.address?.city || '—' }}</td>
+      <td>
+        <a class="btn" [routerLink]="['/users', u.id]">View</a>
+        <a class="btn btn--primary" [routerLink]="['/users', u.id, 'edit']">Edit</a>
+      </td>
+    </tr>
+    <tr *ngIf="!loading && !error && users.length === 0">
+      <td colspan="5">No users</td>
+    </tr>
+  </ng-container>
   </tbody>
 </table>

@@ -1,33 +1,44 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterOutlet, NavigationEnd } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterOutlet, NavigationEnd, IsActiveMatchOptions } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Subscription, filter } from 'rxjs';
+import { filter } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DestroyRef, inject } from '@angular/core';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, RouterLink, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   showBackButton = false;
-  private sub?: Subscription;
+  private readonly destroyRef = inject(DestroyRef);
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
 
   ngOnInit(): void {
-    this.updateBackButton(this.router.url);
+    this.updateBackButton();
 
-    this.sub = this.router.events
-      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
-      .subscribe(e => this.updateBackButton(e.urlAfterRedirects));
+    this.router.events
+      .pipe(
+        filter((e): e is NavigationEnd => e instanceof NavigationEnd),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(() => this.updateBackButton());
   }
 
-  private updateBackButton(url: string) {
-    this.showBackButton = !(url === '/users' || url === '/' || url === '');
+  private updateBackButton() {
+    const matchOptions: IsActiveMatchOptions = {
+      paths: 'exact',
+      queryParams: 'ignored',
+      fragment: 'ignored',
+      matrixParams: 'ignored'
+    };
+    const onUsersList = this.router.isActive('/users', matchOptions);
+    this.showBackButton = !onUsersList;
   }
 
-  ngOnDestroy(): void {
-    this.sub?.unsubscribe();
-  }
 }
