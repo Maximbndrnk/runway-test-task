@@ -1,0 +1,35 @@
+<a class="btn" routerLink="/users">← Back to list</a>
+
+<section *ngIf="loading">Loading...</section>
+<section *ngIf="error" class="error">{{ error }}</section>
+
+<section *ngIf="!loading && user">
+  <h1>User #{{ user.id }}</h1>
+
+  <div class="card">
+    <div class="row">
+      <span class="label">Full name:</span>
+      <span class="value">{{ user.name }}</span>
+    </div>
+    <div class="row">
+      <span class="label">Email:</span>
+      <span class="value">{{ user.email }}</span>
+    </div>
+    <div class="row">
+      <span class="label">Phone:</span>
+      <span class="value">{{ user.phone || '—' }}</span>
+    </div>
+    <div class="row">
+      <span class="label">Address:</span>
+      <span class="value">
+        {{ user.address?.street || '—' }}, {{ user.address?.suite || '' }}<br />
+        {{ user.address?.city || '' }}, {{ user.address?.zipcode || '' }}
+      </span>
+    </div>
+
+    <div class="actions">
+      <a class="btn primary" [routerLink]="['/users', user.id, 'edit']">Edit</a>
+      <button class="btn danger" (click)="delete()">Delete</button>
+    </div>
+  </div>
+</section>

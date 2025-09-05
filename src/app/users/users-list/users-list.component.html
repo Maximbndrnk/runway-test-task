@@ -1,0 +1,30 @@
+<div class="list-header">
+  <h1>Users</h1>
+  <a routerLink="/users/new" class="btn primary">Create user</a>
+</div>
+
+<section *ngIf="loading">Loading...</section>
+<section *ngIf="error" class="error">{{ error }}</section>
+
+<table class="users-table" *ngIf="!loading && !error">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone</th>
+    <th>City</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let u of users$ | async; trackBy: trackById">
+    <td>{{ u.name }}</td>
+    <td>{{ u.email }}</td>
+    <td>{{ u.phone || '—' }}</td>
+    <td>{{ u.address?.city || '—' }}</td>
+    <td>
+      <a class="btn" [routerLink]="['/users', u.id]">View / Edit</a>
+    </td>
+  </tr>
+  </tbody>
+</table>

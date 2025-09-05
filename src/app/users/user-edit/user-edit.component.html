@@ -1,0 +1,32 @@
+<h1>{{ isEditMode ? 'Edit user' : 'Create user' }}</h1>
+
+<section *ngIf="preloading">Loading...</section>
+<section *ngIf="error" class="error">{{ error }}</section>
+
+<form *ngIf="!preloading" [formGroup]="form" (ngSubmit)="submit()" class="form">
+  <div class="row">
+    <label>Name</label>
+    <input type="text" formControlName="firstName" />
+    <div class="hint" *ngIf="firstName.touched && firstName.invalid">Required field</div>
+  </div>
+
+  <div class="row">
+    <label>Last Name</label>
+    <input type="text" formControlName="lastName" />
+    <div class="hint" *ngIf="lastName.touched && lastName.invalid">Required field</div>
+  </div>
+
+  <div class="row">
+    <label>Email</label>
+    <input type="email" formControlName="email" />
+    <div class="hint" *ngIf="email.touched && email.errors?.['required']">Required field</div>
+    <div class="hint" *ngIf="email.touched && email.errors?.['email']">Wrong email format</div>
+  </div>
+
+  <div class="actions">
+    <button class="btn primary" type="submit" [disabled]="loading">{{ isEditMode ? 'Save' : 'Create' }}</button>
+    <a class="btn" [routerLink]="isEditMode && userId ? ['/users', userId] : ['/users']">Cancel</a>
+  </div>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+</form>
