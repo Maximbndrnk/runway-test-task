@@ -2,10 +2,10 @@
   <div class="container">
     <a routerLink="/users" class="brand">Users Manager</a>
     <nav>
+      <a *ngIf="showBackButton" class="nav-link" routerLink="/users">← Back to list</a>
       <a routerLink="/users" class="nav-link">List</a>
       <a routerLink="/users/new" class="nav-link">Create User</a>
     </nav>
-    <a *ngIf="showBackButton" class="btn" routerLink="/users">← Back to list</a>
   </div>
 </header>
 

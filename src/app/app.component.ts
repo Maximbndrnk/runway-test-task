@@ -10,8 +10,6 @@ import { Subscription, filter } from 'rxjs';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'runway-test-task';
-
   showBackButton = false;
   private sub?: Subscription;
 
