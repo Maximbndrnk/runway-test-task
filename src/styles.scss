@@ -1,1 +1,135 @@
-/* You can add global styles to this file, and also import other style files */
+/* Variables */
+/* SCSS design tokens */
+$color-bg: #ffffff;
+$color-ink: #111827;
+$color-ink-2: #374151;
+$color-muted: #6b7280;
+$color-border: #e5e7eb;
+
+$color-primary: #2563eb;
+$color-primary-ink: #ffffff;
+
+$color-danger: #ef4444;
+$color-danger-ink: #ffffff;
+
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+
+$radius-sm: 4px;
+$radius-md: 6px;
+$radius-lg: 8px;
+
+/* Map SCSS vars to CSS custom properties for usage inside view-encapsulated components */
+:root {
+  --color-bg: #{$color-bg};
+  --color-ink: #{$color-ink};
+  --color-ink-2: #{$color-ink-2};
+  --color-muted: #{$color-muted};
+  --color-border: #{$color-border};
+  --color-primary: #{$color-primary};
+  --color-primary-ink: #{$color-primary-ink};
+  --color-danger: #{$color-danger};
+  --color-danger-ink: #{$color-danger-ink};
+
+  --space-1: #{$space-1};
+  --space-2: #{$space-2};
+  --space-3: #{$space-3};
+  --space-4: #{$space-4};
+
+  --radius-sm: #{$radius-sm};
+  --radius-md: #{$radius-md};
+  --radius-lg: #{$radius-lg};
+}
+
+/* Base reset */
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: var(--color-ink);
+  background: var(--color-bg);
+}
+
+/* Layout helpers */
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: calc(var(--space-2) - 1px) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #f9fafb;
+  color: var(--color-ink);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.btn:hover {
+  background: #f3f4f6;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-primary-ink);
+}
+
+.btn--primary:hover {
+  filter: brightness(0.98);
+}
+
+.btn--danger {
+  background: var(--color-danger);
+  border-color: var(--color-danger);
+  color: var(--color-danger-ink);
+}
+
+.btn--danger:hover {
+  filter: brightness(0.98);
+}
+
+/* Cards */
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  background: var(--color-bg);
+}
+
+/* States */
+.error {
+  color: var(--color-danger);
+}
+
+/* Tables */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+}
+
+/* Headings spacing */
+h1, h2, h3 {
+  margin: var(--space-4) 0 var(--space-3);
+}

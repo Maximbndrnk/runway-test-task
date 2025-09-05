@@ -1,0 +1,57 @@
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: saturate(180%) blur(6px);
+}
+
+.app-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  gap: var(--space-3);
+}
+
+.brand {
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--color-ink-2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: background-color .15s ease, color .15s ease;
+}
+
+.nav-link:hover {
+  background: #f3f4f6;
+  color: var(--color-ink);
+}
+
+@media (max-width: 600px) {
+  .app-header .container {
+    height: auto;
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  nav {
+    width: 100%;
+    justify-content: flex-start;
+    gap: var(--space-2);
+  }
+}

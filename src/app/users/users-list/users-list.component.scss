@@ -2,30 +2,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 1rem 0;
+  margin: var(--space-4) 0;
 }
+
 .users-table {
   width: 100%;
   border-collapse: collapse;
 }
-.users-table th, .users-table td {
-  border-bottom: 1px solid #e5e7eb;
-  padding: 0.5rem 0.75rem;
+
+.users-table th,
+.users-table td {
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-2) var(--space-3);
   text-align: left;
-}
-.btn {
-  padding: 0.4rem 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  text-decoration: none;
-  color: #111827;
-  background: #f9fafb;
-}
-.btn.primary {
-  background: #2563eb;
-  color: #fff;
-  border-color: #2563eb;
-}
-.error {
-  color: #b91c1c;
 }

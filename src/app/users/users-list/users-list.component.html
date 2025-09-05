@@ -1,6 +1,6 @@
 <div class="list-header">
   <h1>Users</h1>
-  <a routerLink="/users/new" class="btn primary">Create user</a>
+  <a routerLink="/users/new" class="btn btn--primary">Create user</a>
 </div>
 
 <section *ngIf="loading">Loading...</section>
@@ -23,7 +23,8 @@
     <td>{{ u.phone || '—' }}</td>
     <td>{{ u.address?.city || '—' }}</td>
     <td>
-      <a class="btn" [routerLink]="['/users', u.id]">View / Edit</a>
+      <a class="btn" [routerLink]="['/users', u.id]">View</a>
+      <a class="btn btn--primary" [routerLink]="['/users', u.id, 'edit']">Edit</a>
     </td>
   </tr>
   </tbody>
