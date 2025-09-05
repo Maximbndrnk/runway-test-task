@@ -5,6 +5,7 @@
       <a routerLink="/users" class="nav-link">List</a>
       <a routerLink="/users/new" class="nav-link">Create User</a>
     </nav>
+    <a *ngIf="showBackButton" class="btn" routerLink="/users">← Back to list</a>
   </div>
 </header>
 
